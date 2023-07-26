@@ -1,6 +1,7 @@
 package com.violetbeach.websocketserver.application;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
+import com.violetbeach.websocketserver.application.request.CreateRoomRequest;
 import jakarta.annotation.PostConstruct;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
@@ -31,11 +32,11 @@ public class ChatService {
         return chatRooms.get(roomId);
     }
 
-    public ChatRoom createRoom(String name) {
+    public ChatRoom createRoom(CreateRoomRequest request) {
         String randomId = UUID.randomUUID().toString();
         ChatRoom chatRoom = ChatRoom.builder()
                 .roomId(randomId)
-                .name(name)
+                .name(request.name())
                 .build();
         chatRooms.put(randomId, chatRoom);
         return chatRoom;
